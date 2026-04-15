@@ -14,10 +14,18 @@ namespace PROJETO_QA
 
         private void btnConsulta_Click(object sender, EventArgs e)
         {
-            lbPreco.Text = "Pesquisando";
+            try
+            {
+                lbPreco.Text = "Pesquisando";
 
-            double preco = ObterPrecoBitcoin();
-            lbPreco.Text = preco.ToString("C");
+                double preco = ObterPrecoBitcoin();
+                lbPreco.Text = preco.ToString("C");
+            }
+            catch
+            {
+                lbPreco.Text = "Erro ao consultar API, tente novamente mais tarde!";
+            }
+                
         }
 
         private double ObterPrecoBitcoin()
