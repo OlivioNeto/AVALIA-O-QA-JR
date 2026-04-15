@@ -52,6 +52,7 @@
             btnConsulta.TabIndex = 1;
             btnConsulta.Text = "button1";
             btnConsulta.UseVisualStyleBackColor = true;
+            btnConsulta.Click += btnConsulta_Click;
             // 
             // dgvHistorico
             // 
@@ -83,5 +84,7 @@
         private Label lbPreco;
         private Button btnConsulta;
         private DataGridView dgvHistorico;
+
+        
     }
 }

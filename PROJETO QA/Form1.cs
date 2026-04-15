@@ -11,5 +11,10 @@ namespace PROJETO_QA
         {
 
         }
+
+        private void btnConsulta_Click(object sender, EventArgs e)
+        {
+            lbPreco.Text = "Pesquisando";
+        }
     }
 }

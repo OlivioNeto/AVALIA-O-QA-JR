@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\heric\\source\\repos\\PROJETO QA\\PROJETO QA\\PROJETO QA.csproj": {}
+    "C:\\Users\\heric\\OneDrive\\Área de Trabalho\\AVALIA-O-QA-JR\\PROJETO QA\\PROJETO QA.csproj": {}
   },
   "projects": {
-    "C:\\Users\\heric\\source\\repos\\PROJETO QA\\PROJETO QA\\PROJETO QA.csproj": {
+    "C:\\Users\\heric\\OneDrive\\Área de Trabalho\\AVALIA-O-QA-JR\\PROJETO QA\\PROJETO QA.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\heric\\source\\repos\\PROJETO QA\\PROJETO QA\\PROJETO QA.csproj",
+        "projectUniqueName": "C:\\Users\\heric\\OneDrive\\Área de Trabalho\\AVALIA-O-QA-JR\\PROJETO QA\\PROJETO QA.csproj",
         "projectName": "PROJETO QA",
-        "projectPath": "C:\\Users\\heric\\source\\repos\\PROJETO QA\\PROJETO QA\\PROJETO QA.csproj",
+        "projectPath": "C:\\Users\\heric\\OneDrive\\Área de Trabalho\\AVALIA-O-QA-JR\\PROJETO QA\\PROJETO QA.csproj",
         "packagesPath": "C:\\Users\\heric\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\heric\\source\\repos\\PROJETO QA\\PROJETO QA\\obj\\",
+        "outputPath": "C:\\Users\\heric\\OneDrive\\Área de Trabalho\\AVALIA-O-QA-JR\\PROJETO QA\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -60,24 +60,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.36, 6.0.36]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[6.0.36, 6.0.36]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.36, 6.0.36]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.36, 6.0.36]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
