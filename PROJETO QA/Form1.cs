@@ -1,3 +1,5 @@
+using System.Configuration;
+
 namespace PROJETO_QA
 {
     public partial class Form1 : Form
@@ -12,13 +14,13 @@ namespace PROJETO_QA
 
         }
 
-        private void btnConsulta_Click(object sender, EventArgs e)
+        private async void btnConsulta_Click(object sender, EventArgs e)
         {
             try
             {
                 lbPreco.Text = "Pesquisando";
 
-                double preco = ObterPrecoBitcoin();
+                double preco = await ObterPrecoBitcoin();
                 lbPreco.Text = preco.ToString("C");
             }
             catch
@@ -28,10 +30,11 @@ namespace PROJETO_QA
                 
         }
 
-        private double ObterPrecoBitcoin()
+        private async Task<double> ObterPrecoBitcoin() // async pois o método usa await, algo de de fora e Task double para devolver double
         {
-            double preco = 350000.75;
-            return preco;
+            HttpClient clientHttp = new HttpClient(); // variavel para requisição
+            var respostaHttp = await clientHttp.GetAsync("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=brl");
+            await respostaHttp.Content.ReadAsStringAsync();
         }
     }
 }
