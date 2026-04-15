@@ -16,9 +16,14 @@ namespace PROJETO_QA
         {
             lbPreco.Text = "Pesquisando";
 
-            double preco = 350000.75;
-
+            double preco = ObterPrecoBitcoin();
             lbPreco.Text = preco.ToString("C");
+        }
+
+        private double ObterPrecoBitcoin()
+        {
+            double preco = 350000.75;
+            return preco;
         }
     }
 }
