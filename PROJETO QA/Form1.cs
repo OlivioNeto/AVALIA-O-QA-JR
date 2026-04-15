@@ -21,25 +21,24 @@ namespace PROJETO_QA
         
         private async void btnConsulta_Click(object sender, EventArgs e)
         {
-            double preco = 350000.75;
-            lbPreco.Text = preco.ToString("C");
-            SalvarCotacao(preco);
-            /*try
+            try
             {
                 lbPreco.Text = "Pesquisando";
 
                 double preco = await ObterPrecoBitcoin();
                 lbPreco.Text = preco.ToString("C");
+                SalvarCotacao(preco);
             }
-            catch
+            catch (Exception ex)
             {
-                lbPreco.Text = "Erro ao consultar API, tente novamente mais tarde!";
-            }*/
+                lbPreco.Text = ex.Message;
+            }
 
         }
 
-        /*private async Task<double> ObterPrecoBitcoin() // async pois o método usa await, algo de de fora e Task double para devolver double
+        private async Task<double> ObterPrecoBitcoin() // async pois o método usa await, algo de de fora e Task double para devolver double
         {
+
             HttpClient clientHttp = new HttpClient(); // variavel para requisição
 
             clientHttp.DefaultRequestHeaders.UserAgent.ParseAdd(
@@ -52,14 +51,8 @@ namespace PROJETO_QA
 
             var objDesserializado = JsonSerializer.Deserialize<RespostaBitcoin>(guardandoJson); // tranformando o json em algpo que o C# entenda
 
-            double preco = await ObterPrecoBitcoin();
-
-            lbPreco.Text = preco.ToString("C");
-
-            SalvarCotacao(preco);
-
             return objDesserializado.bitcoin.brl; // retornando o objeto com a moeda bitcoin e o brl que é a moeda brasileira
-        }*/
+        }
 
         class RespostaBitcoin // é um objeto com a prioridade bitcoin
         {
