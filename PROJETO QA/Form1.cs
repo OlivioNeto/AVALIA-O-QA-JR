@@ -36,5 +36,16 @@ namespace PROJETO_QA
             var respostaHttp = await clientHttp.GetAsync("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=brl");
             await respostaHttp.Content.ReadAsStringAsync();
         }
+
+        class RespostaBitcoin // é um objeto com a prioridade bitcoin
+        {
+            public Moeda bitcoin { get; set;  }
+        }
+
+        class Moeda // é o que possui dentro do bitcoin
+        { 
+            public double brl {  get; set; }
+        }
+
     }
 }
