@@ -1,4 +1,5 @@
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -18,7 +19,7 @@ namespace PROJETO_QA
         {
 
         }
-        
+
         private async void btnConsulta_Click(object sender, EventArgs e)
         {
             try
@@ -28,6 +29,7 @@ namespace PROJETO_QA
                 double preco = await ObterPrecoBitcoin();
                 lbPreco.Text = preco.ToString("C");
                 SalvarCotacao(preco);
+                ExbirHistorico();
             }
             catch (Exception ex)
             {
@@ -46,7 +48,7 @@ namespace PROJETO_QA
             ); // essa parte mostra para a api que eu sou um usuário e caso eu abuse ela tem um contato para chegar até mim
 
             var respostaHttp = await clientHttp.GetAsync("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=brl"); // pegando uma resposta da API
-           
+
             string guardandoJson = await respostaHttp.Content.ReadAsStringAsync(); // pegando um json e fazendo ele ser lido como string
 
             var objDesserializado = JsonSerializer.Deserialize<RespostaBitcoin>(guardandoJson); // tranformando o json em algpo que o C# entenda
@@ -56,30 +58,49 @@ namespace PROJETO_QA
 
         class RespostaBitcoin // é um objeto com a prioridade bitcoin
         {
-            public Moeda bitcoin { get; set;  }
+            public Moeda bitcoin { get; set; }
         }
 
         class Moeda // é o que possui dentro do bitcoin
-        { 
-            public double brl {  get; set; }
+        {
+            public double brl { get; set; }
         }
 
         private void SalvarCotacao(double valor)
         {
-            using (SqlConnection conexao = new SqlConnection(connectionString))
+            using (SqlConnection conexao = new SqlConnection(connectionString)) // criando conexão com o banco
             {
-                MessageBox.Show("Salvando no banco...");
-                conexao.Open();
-                string sql = "INSERT INTO Cotacoes (Preco, Variacao) VALUES (@preco, NULL)";
+                conexao.Open(); // abrindo a conexão
+                string sql = "INSERT INTO Cotacoes (Preco, Variacao) VALUES (@preco, NULL)"; // o que eu quero do banco naquele momento
 
-                using (SqlCommand comando = new SqlCommand(sql, conexao))
+                using (SqlCommand comando = new SqlCommand(sql, conexao)) // cria um chamado sql que vai ser executado no banco
                 {
-                    comando.Parameters.AddWithValue("@preco", valor);
-                    comando.ExecuteNonQuery();
+                    comando.Parameters.AddWithValue("@preco", valor); // usado o valor preço como parâmetro por segurança 
+                    comando.ExecuteNonQuery(); // executa o comando no banco, não retorna dados
                 }
             }
         }
 
+        private void dgvHistorico_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
+        }
+
+        private void ExbirHistorico()
+        {
+            using (SqlConnection conexao = new SqlConnection(connectionString)) // // criando conexão com o banco
+            {
+                conexao.Open(); // abrindo a conexão
+                string sql = "SELECT DataHora, Preco, Variacao FROM Cotacoes ORDER BY DataHora DESC"; // o que eu quero do banco naquele momento
+
+                using (SqlDataAdapter adapta = new SqlDataAdapter(sql, conexao)) // e a ponte do banco e a tabela c#, busca dos dados e coloca dentro da DGV
+                {
+                    DataTable tabela = new DataTable(); // cria a memória da tabela
+                    adapta.Fill(tabela); // executa o select e preenche
+
+                    dgvHistorico.DataSource = tabela; // onde eu ligo a tabela com o DGV
+                }
+            }     
+        }
     }
 }
