@@ -1,4 +1,5 @@
 using System.Configuration;
+using System.Data.SqlClient;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -20,7 +21,10 @@ namespace PROJETO_QA
         
         private async void btnConsulta_Click(object sender, EventArgs e)
         {
-            try
+            double preco = 350000.75;
+            lbPreco.Text = preco.ToString("C");
+            SalvarCotacao(preco);
+            /*try
             {
                 lbPreco.Text = "Pesquisando";
 
@@ -30,11 +34,11 @@ namespace PROJETO_QA
             catch
             {
                 lbPreco.Text = "Erro ao consultar API, tente novamente mais tarde!";
-            }
-                
+            }*/
+
         }
-        
-        private async Task<double> ObterPrecoBitcoin() // async pois o método usa await, algo de de fora e Task double para devolver double
+
+        /*private async Task<double> ObterPrecoBitcoin() // async pois o método usa await, algo de de fora e Task double para devolver double
         {
             HttpClient clientHttp = new HttpClient(); // variavel para requisição
 
@@ -47,9 +51,15 @@ namespace PROJETO_QA
             string guardandoJson = await respostaHttp.Content.ReadAsStringAsync(); // pegando um json e fazendo ele ser lido como string
 
             var objDesserializado = JsonSerializer.Deserialize<RespostaBitcoin>(guardandoJson); // tranformando o json em algpo que o C# entenda
-            
+
+            double preco = await ObterPrecoBitcoin();
+
+            lbPreco.Text = preco.ToString("C");
+
+            SalvarCotacao(preco);
+
             return objDesserializado.bitcoin.brl; // retornando o objeto com a moeda bitcoin e o brl que é a moeda brasileira
-        }
+        }*/
 
         class RespostaBitcoin // é um objeto com a prioridade bitcoin
         {
@@ -60,6 +70,23 @@ namespace PROJETO_QA
         { 
             public double brl {  get; set; }
         }
+
+        private void SalvarCotacao(double valor)
+        {
+            using (SqlConnection conexao = new SqlConnection(connectionString))
+            {
+                MessageBox.Show("Salvando no banco...");
+                conexao.Open();
+                string sql = "INSERT INTO Cotacoes (Preco, Variacao) VALUES (@preco, NULL)";
+
+                using (SqlCommand comando = new SqlCommand(sql, conexao))
+                {
+                    comando.Parameters.AddWithValue("@preco", valor);
+                    comando.ExecuteNonQuery();
+                }
+            }
+        }
+
 
     }
 }
