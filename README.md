@@ -21,3 +21,6 @@ CREATE TABLE Cotacoes (
 GO
 
 Com ele você cria sempre o que está acima do GO, pois com o Script que foi passado dava um erro de criação, após isso pressione as teclas: CTRL + SHIFT + E ou apenas procure pelo botão verde que parece um play logo a cima da linha 1.
+
+Endpoint: 
+https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=brl
